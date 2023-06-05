@@ -1,20 +1,35 @@
 {% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
 
-{% block Titulo %}Cadastro Senac Shopping{% endblock Titulo %}
+{% block Titulo %}Cadastra-se{% endblock Titulo %}
 
 {% block Conteudo %}
         <!-- Header-->
         <header class="bg-light py-1">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-dark">
-                    <h1 class="display-4 fw-bolder">Cadastro Senac Shopping</h1>
+                    <h1 class="display-4 fw-bolder">Cadastra-se</h1>
                 </div>
             </div>
         </header>
         <!-- Section-->
         <section class="py-5">
             <div class="container">
-                {% lorem 1 b random %}
+                {% if mensagem %}
+                    <div class="alert alert-sucess">
+                      {{ mensagem }}
+                    </div>
+                {% endif %}
+            
+                <form action="{% url 'cadastro' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="col-md-6 offset-md-3">
+                        {{ form_cliente|crispy }}
+                        <input type="submit" value="Enviar" class="btn btn-success">
+                    </div>                 
+                </form>
+
             </div>
         </section>  
 
